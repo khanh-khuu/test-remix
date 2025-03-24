@@ -1,0 +1,46 @@
+name: Make
+
+on:
+  workflow_dispatch:
+    inputs:
+      vid_url:
+        description: 'The URL to process'
+        required: true
+      cmd:
+        description: 'Command'
+        required: true
+
+jobs:
+  process-vid:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download Vid
+      run: |
+        wget -v -O input.mp4 ${{ github.event.inputs.vid_url }}
+
+    - uses: FedericoCarboni/setup-ffmpeg@v3
+      id: setup-ffmpeg
+      with:
+        # A specific version to download, may also be "release" or a specific version
+        # like "6.1.0". At the moment semver specifiers (i.e. >=6.1.0) are supported
+        # only on Windows, on other platforms they are allowed but version is matched
+        # exactly regardless.
+        ffmpeg-version: release
+        # Target architecture of the ffmpeg executable to install. Defaults to the
+        # system architecture. Only x64 and arm64 are supported (arm64 only on Linux).
+        architecture: ''
+        # As of version 3 of this action, builds are no longer downloaded from GitHub
+        # except on Windows: https://github.com/GyanD/codexffmpeg/releases.
+        github-token: ${{ github.server_url == 'https://github.com' && github.token || '' }}
+
+    - name: Speed Up Vid
+      run: ${{ github.event.inputs.cmd }}
+
+    - name: Upload Vid to Node.js Server
+      run: |
+        curl -X POST https://webhook.site/abc92ac4-b6bf-49a8-b613-ab9b60e03143 \
+        -F "file=@output.mp4"
