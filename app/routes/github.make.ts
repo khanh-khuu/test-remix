@@ -7,12 +7,12 @@ export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const downloadUrl = url.searchParams.get("url");
 
-  const id = Date.now().toString();
-  const outputPath = path.join(process.cwd(), "temp", id, 'input.mp4');
+  const fileName = path.basename(downloadUrl!);
+  const outputPath = path.join(process.cwd(), "temp", fileName);
 
   try {
     if (!fs.existsSync(path.join(process.cwd(), 'temp'))) fs.mkdirSync(path.join(process.cwd(), 'temp'));
-    if (!fs.existsSync(path.join(process.cwd(), 'temp', id))) fs.mkdirSync(path.join(process.cwd(), 'temp', id));
+
     const writer = fs.createWriteStream(outputPath);
 
     const response = await axios.get(downloadUrl!, {
@@ -21,10 +21,6 @@ export const loader: LoaderFunction = async ({ request }) => {
 
     response.data.pipe(writer);
 
-    fs.writeFileSync(path.join(process.cwd(), "temp", id, 'description.txt'), path.basename(downloadUrl!), {
-        encoding: 'utf-8'
-    });
-
     return new Promise((resolve, reject) => {
       writer.on("finish", () => {
         resolve(Response.json({ filePath: outputPath }));
@@ -32,7 +28,7 @@ export const loader: LoaderFunction = async ({ request }) => {
       writer.on("error", reject);
     });
   } catch (error) {
-    
+    console.error("Error downloading the file:", error);
     return Response.json(
       { error: "Failed to download the file." },
       { status: 500 }
