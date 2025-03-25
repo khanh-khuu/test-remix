@@ -207,7 +207,7 @@ export const loader: LoaderFunction = async ({ request }) => {
     });
   }
 
-  if (!fs.existsSync(path.join(process.cwd(), 'temp', id))) fs.mkdirSync(path.join(process.cwd(), 'temp', id), {
+  if (!fs.existsSync(path.join("/tmp", id))) fs.mkdirSync(path.join("/tmp", id), {
     recursive: true,
   });
 
