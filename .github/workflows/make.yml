@@ -44,8 +44,7 @@ jobs:
     
     - name: Send notification
       run: |
-        ARTIFACT_URL="https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts"
-        curl -X POST -H "Content-Type: application/json" -d "{\"artifact_url\": \"${ARTIFACT_URL}\"}" https://webhook.site/767759ac-ade3-41ea-9ca8-5c28a003dad0
+        curl -X POST -H "Content-Type: application/json" -d "{\"runId\": \"${{ github.run_id }}"}" ${{ github.event.inputs.postback }}
 
     # - name: Upload Vid to Node.js Server
     #   run: |

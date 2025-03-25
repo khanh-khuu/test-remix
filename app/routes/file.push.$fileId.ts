@@ -8,7 +8,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const url = new URL(request.url);
   const baseUrl = `${url.protocol}//${url.host}`;
   
-  const postback = `${baseUrl}/file/upload/${fileId}`;
+  const postback = `${baseUrl}/file/postback/${fileId}`;
   const vid_url = `${baseUrl}/file/${fileId}/input.mp4`;
 
   if (!process.env.GITHUB_TOKEN) {
