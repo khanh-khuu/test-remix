@@ -119,7 +119,7 @@ export default function Index() {
   useDeepCompareEffect(() => {
     if (!init) return;
     playSound();
-  }, [files]);
+  }, [files.map(x => x.id + x.output)]);
 
   useEffect(() => {
     thumbnailGenerator.current?.revokeUrls();
