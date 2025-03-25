@@ -11,8 +11,16 @@ import { createReadableStreamFromReadable } from "@remix-run/node";
 import { RemixServer } from "@remix-run/react";
 import { isbot } from "isbot";
 import { renderToPipeableStream } from "react-dom/server";
+import https from 'https'
+import axios from 'axios'
 
 const ABORT_DELAY = 5_000;
+
+const httpsAgent = new https.Agent({
+  rejectUnauthorized: false,
+})
+axios.defaults.httpsAgent = httpsAgent
+
 
 export default function handleRequest(
   request: Request,
