@@ -30,20 +30,20 @@ export const loader: LoaderFunction = async () => {
         output: null,
         thumbnail: null,
     };
-    if (fs.existsSync(path.join(process.cwd(), 'temp', dir, 'thumbnail.png'))) {
-        file.thumbnail = path.join(process.cwd(), 'temp', dir, 'thumbnail.png');
+    if (fs.existsSync(path.join('/tmp', dir, 'thumbnail.png'))) {
+        file.thumbnail = path.join('/tmp', dir, 'thumbnail.png');
     }
 
-    if (fs.existsSync(path.join(process.cwd(), 'temp', dir, 'input.mp4'))) {
-        file.input = path.join(process.cwd(), 'temp', dir, 'input.mp4');
+    if (fs.existsSync(path.join('/tmp', dir, 'input.mp4'))) {
+        file.input = path.join('/tmp', dir, 'input.mp4');
     }
 
-    if (fs.existsSync(path.join(process.cwd(), 'temp', dir, 'output.mp4'))) {
-        file.output = path.join(process.cwd(), 'temp', dir, 'output.mp4');
+    if (fs.existsSync(path.join('/tmp', dir, 'output.mp4'))) {
+        file.output = path.join('/tmp', dir, 'output.mp4');
     }
 
-    if (fs.existsSync(path.join(process.cwd(), 'temp', dir, 'description.txt'))) {
-        const data = fs.readFileSync(path.join(process.cwd(), 'temp', dir, 'description.txt'), 'utf8');
+    if (fs.existsSync(path.join('/tmp', dir, 'description.txt'))) {
+        const data = fs.readFileSync(path.join('/tmp', dir, 'description.txt'), 'utf8');
         file.description = data.toString();
     }
 

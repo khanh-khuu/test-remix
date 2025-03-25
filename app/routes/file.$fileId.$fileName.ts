@@ -8,7 +8,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
 
   const download = new URL(request.url).searchParams.get('download');
   
-  const fullPath = path.join(process.cwd(), 'temp', fileId!, fileName!);
+  const fullPath = path.join('/tmp', fileId!, fileName!);
  
   fs.accessSync(fullPath);
 
