@@ -36,7 +36,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     return `[output]drawtext=fontfile=./public/fonts/LeagueSpartan-Bold.ttf:text='${line}':x=(w-text_w)*0.5:y=(h-text_h)*${textPosition}+(${idx}*54):fontsize=48:fontcolor=white:shadowcolor=black:shadowx=2:shadowy=2[output]`;
   });
 
-  let cmd = 'ffmpeg -i input.mp4 --filter_complex "';
+  let cmd = 'ffmpeg -i input.mp4 -filter_complex "';
   cmd += [
     `[0]crop=${Number(crop.width) / 100}*iw:${Number(crop.height) / 100}*ih:${
       Number(crop.x) / 100
