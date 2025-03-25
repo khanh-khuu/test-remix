@@ -36,7 +36,18 @@ jobs:
     - name: Process Vid
       run: ${{ github.event.inputs.cmd }}
 
-    - name: Upload Vid to Node.js Server
+    - name: Upload to artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: video-artifact
+        path: output.mp4
+    
+    - name: Send notification
       run: |
-        curl -X POST ${{ github.event.inputs.postback }} \
-        -F 'file=@output.mp4'
+        ARTIFACT_URL="https://github.com/${{ github.repository }}/suites/${{ github.run_id }}/artifacts"
+        curl -X POST -H "Content-Type: application/json" -d "{\"artifact_url\": \"${ARTIFACT_URL}\"}" https://webhook.site/767759ac-ade3-41ea-9ca8-5c28a003dad0
+
+    # - name: Upload Vid to Node.js Server
+    #   run: |
+    #     curl -X POST ${{ github.event.inputs.postback }} \
+    #     -F 'file=@output.mp4'
