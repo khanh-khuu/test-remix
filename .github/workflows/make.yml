@@ -26,12 +26,10 @@ jobs:
       run: |
         wget -v -O input.mp4 ${{ github.event.inputs.vid_url }}
 
-    - uses: FedericoCarboni/setup-ffmpeg@v3
-      id: setup-ffmpeg
+    - name: Setup FFMPEG
+      uses: AnimMouse/setup-ffmpeg@v1
       with:
-        ffmpeg-version: release
-        architecture: ''
-        github-token: ${{ github.server_url == 'https://github.com' && github.token || '' }}
+        version: 7.1
 
     - name: Process Vid
       run: ${{ github.event.inputs.cmd }}
