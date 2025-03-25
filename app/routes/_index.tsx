@@ -123,17 +123,14 @@ export default function Index() {
 
   useEffect(() => {
     thumbnailGenerator.current?.revokeUrls();
-    if (!activeId || !activeFile?.input) return;
+    if (!activeFile?.input) return;
 
-    thumbnailGenerator.current = new VideoThumbnailGenerator(activeFile.input);
-    console.log('hello', !activeId, !activeFile?.input, !activeId || !activeFile?.input)
-
-
+    thumbnailGenerator.current = new VideoThumbnailGenerator(activeFile!.input);
+    
     thumbnailGenerator.current.getThumbnail("middle").then((thumb) => {
-      console.log(thumb);
       setThumbnail(thumb.thumbnail);
     });
-  }, [activeId]);
+  }, [activeFile?.input]);
 
   return (
     <Card
