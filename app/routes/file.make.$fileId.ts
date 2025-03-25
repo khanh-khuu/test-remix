@@ -22,7 +22,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const baseUrl = `${url.protocol}//${url.host}`;
 
   const postback = `${baseUrl}/file/postback/${fileId}`;
-  const vid_url = `${baseUrl}/file/${fileId}/input.mp4`;
+  const vid_url = `${baseUrl}/file/${fileId}.input.mp4`;
   const width = 1080;
   const height = 1920;
 
