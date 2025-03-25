@@ -47,7 +47,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     `[bottom]boxblur=10,eq=brightness=-0.45:contrast=0.9:saturation=0.4[bottom]`,
     `[top][bottom]overlay=0:h[full]`,
     `[full]crop=${width}:${height}:0:0[full]`,
-    `[full]scale=${width}:${height},setsar=1:1,format=gbrp[i1]`,
+    `[full]scale=${width}:${height},setsar=1:1,format=gbrp[output]`,
     // ...captions,
     `[output]pad=iw:ih+ih*0.15:(iw-iw)/2:(ih*0.15)/2:black`,
   ].join(";");
