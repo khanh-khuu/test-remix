@@ -2,9 +2,11 @@ import { ActionFunction, json, LoaderFunction } from "@remix-run/node";
 import axios from "axios";
 import path from "path";
 import fs from "fs";
-import YTDlpWrap from "yt-dlp-wrap";
+// import * as YTDlpWrap from "yt-dlp-wrap";
 import { getFbVideoInfo } from "fb-downloader-scrapper";
 import he from "he";
+
+const YTDlpWrap = require('yt-dlp-wrap').default;
 
 async function downloadYoutube(
   url: string,
