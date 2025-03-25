@@ -6,8 +6,10 @@ export const action: ActionFunction = async ({ request, params }) => {
   const { cmd } = await request.json();
 
   const url = new URL(request.url);
-  const postback = `${url.protocol}://${url.hostname}:${url.port}/file/upload/${fileId}`;
-  const vid_url = `${url.protocol}://${url.hostname}:${url.port}/file/${fileId}/input.mp4`;
+  const baseUrl = `${url.protocol}//${url.host}`;
+  
+  const postback = `${baseUrl}/file/upload/${fileId}`;
+  const vid_url = `${baseUrl}/file/${fileId}/input.mp4`;
 
   if (!process.env.GITHUB_TOKEN) {
     return Response.json(
