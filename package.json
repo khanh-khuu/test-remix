@@ -11,13 +11,13 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@remix-run/serve": "*",
     "@mantine/core": "^7.17.2",
     "@mantine/hooks": "^7.17.2",
     "@mantine/nprogress": "^7.17.2",
     "@remix-run/express": "^2.16.1",
     "@remix-run/node": "^2.16.0",
     "@remix-run/react": "^2.16.0",
+    "@remix-run/serve": "*",
     "@tabler/icons-react": "^3.31.0",
     "axios": "^1.8.3",
     "cross-env": "^7.0.3",
@@ -32,6 +32,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-image-crop": "^11.0.7",
+    "unzipper": "^0.12.3",
     "yt-dlp-wrap": "^2.3.12"
   },
   "devDependencies": {
@@ -43,6 +44,7 @@
     "@types/node": "^22.13.10",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
+    "@types/unzipper": "^0.10.11",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.19",
