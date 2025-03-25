@@ -44,7 +44,7 @@ jobs:
     
     - name: Send notification
       run: |
-        curl -X POST -H "Content-Type: application/json" -d "{\"runId\": \"${{ github.run_id }}"}" ${{ github.event.inputs.postback }}
+        curl -X POST -H "Content-Type: application/json" -d "{\"runId\": \"${{ github.run_id }}\"}" ${{ github.event.inputs.postback }}
 
     # - name: Upload Vid to Node.js Server
     #   run: |
