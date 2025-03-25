@@ -48,7 +48,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     `[top][bottom]overlay=0:h[full]`,
     `[full]crop=${width}:${height}:0:0[full]`,
     `[full]scale=${width}:${height},setsar=1:1,format=gbrp[i1]`,
-    ...captions,
+    // ...captions,
     `[output]pad=iw:ih+ih*0.15:(iw-iw)/2:(ih*0.15)/2:black`,
   ].join(";");
 
