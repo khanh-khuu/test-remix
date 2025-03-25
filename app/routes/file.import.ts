@@ -201,23 +201,13 @@ export const loader: LoaderFunction = async ({ request }) => {
     );
 
   const id = Date.now().toString();
-  const outputPath = path.join("/tmp", id, 'input.mp4');
-
-  if (!fs.existsSync(path.join("/tmp"))) {
-    fs.mkdirSync(path.join("/tmp"), {
-      recursive: true,
-    });
-  }
-
-  if (!fs.existsSync(path.join("/tmp", id))) fs.mkdirSync(path.join("/tmp", id), {
-    recursive: true,
-  });
+  const outputPath = path.join("/tmp", id + '.input.mp4');
 
   const description = await downloadVideo(downloadUrl, outputPath);
 
   try {
     fs.writeFileSync(
-      path.join("/tmp", id, "description.txt"),
+      path.join("/tmp", id + ".txt"),
       description,
       {
         encoding: "utf-8",

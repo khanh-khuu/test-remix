@@ -4,11 +4,11 @@ import fs from "fs";
 import mime from 'mime';
 
 export const loader: LoaderFunction = async ({ params, request }) => {
-  const { fileId, fileName } = params;
+  const { fileName } = params;
 
   const download = new URL(request.url).searchParams.get('download');
   
-  const fullPath = path.join('/tmp', fileId!, fileName!);
+  const fullPath = path.join('/tmp', fileName!);
  
   fs.accessSync(fullPath);
 
@@ -22,7 +22,7 @@ export const loader: LoaderFunction = async ({ params, request }) => {
   };
 
   if (download !== null) {
-    headers["Content-Disposition"] = `attachment; filename="${fileId + '-' + fileName}"`;
+    headers["Content-Disposition"] = `attachment; filename="${fileName}"`;
   }
   return new Response(fileBuffer, {
     headers,

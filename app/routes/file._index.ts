@@ -14,37 +14,42 @@ export const loader: LoaderFunction = async () => {
   const outputPath = path.join("/tmp");
   if (!fs.existsSync(outputPath)) return Response.json([]);
 
-  const dirs = fs
+  const files = fs
     .readdirSync(outputPath, { withFileTypes: true })
-    .filter((x) => x.isDirectory())
+    .filter((x) => x.isFile())
     .map((x) => x.name);
 
-  const result: VideoFile[] = [];
+  const obj: Record<string, VideoFile> = {};
 
-  for (const dir of dirs) {
-    const file: VideoFile = {
-        id: dir,
-        description: null,
-        input: null,
-        output: null,
-    };
- 
-    if (fs.existsSync(path.join('/tmp', dir, 'input.mp4'))) {
-        file.input = `/file/${dir}/input.mp4`;
+  for (const file of files) {
+    if (file.endsWith('.input.mp4')) {
+      const id = file.replace('.input.mp4', '');
+      obj[id] = {
+        ...obj[id],
+        id,
+        input: `/file/${file}`,
+      };
     }
 
-    if (fs.existsSync(path.join('/tmp', dir, 'output.mp4'))) {
-        file.output = `/file/${dir}/output.mp4`;
+    if (file.endsWith('.output.mp4')) {
+      const id = file.replace('.output.mp4', '');
+      obj[id] = {
+        ...obj[id],
+        id,
+        output: `/file/${file}`,
+      };
     }
 
-    if (fs.existsSync(path.join('/tmp', dir, 'description.txt'))) {
-        const data = fs.readFileSync(path.join('/tmp', dir, 'description.txt'), 'utf8');
-        file.description = data.toString();
+    if (file.endsWith('.txt')) {
+      const id = file.replace('.txt', '');
+      const data = fs.readFileSync(path.join('/tmp', id + '.txt'), 'utf8');
+      obj[id] = {
+        ...obj[id],
+        id,
+        description: data.toString(),
+      };
     }
-
-    result.push(file);
-
   }
 
-  return Response.json(result);
+  return Response.json(Object.values(obj));
 };
