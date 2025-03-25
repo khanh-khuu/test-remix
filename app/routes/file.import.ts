@@ -224,6 +224,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
     return Response.json({
       id,
+      description,
     })
 
   } catch (error) {

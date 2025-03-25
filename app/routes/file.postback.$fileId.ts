@@ -61,29 +61,4 @@ export async function action({ request, params }: ActionFunctionArgs) {
   return Response.json({
     success: true,
   });
-
-  // if (!file)
-  //   return Response.json(
-  //     {
-  //       error: "No file.",
-  //     },
-  //     { status: 400 }
-  //   );
-
-  // if (!fs.existsSync(path.join("/tmp", fileId!)))
-  //   return Response.json(
-  //     {
-  //       error: "Id invalid.",
-  //     },
-  //     { status: 400 }
-  //   );
-
-  // const filePath = path.join("/tmp", fileId!, "output.mp4");
-  // const buffer = Buffer.from(await file.arrayBuffer());
-
-  // fs.writeFileSync(filePath, buffer);
-
-  // return Response.json({
-  //   message: "Ok",
-  // });
 }

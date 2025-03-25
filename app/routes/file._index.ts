@@ -8,7 +8,6 @@ interface VideoFile {
   input: string | null;
   output: string | null;
   description: string | null;
-  thumbnail: string | null;
 }
 
 export const loader: LoaderFunction = async () => {
@@ -28,18 +27,14 @@ export const loader: LoaderFunction = async () => {
         description: null,
         input: null,
         output: null,
-        thumbnail: null,
     };
-    if (fs.existsSync(path.join('/tmp', dir, 'thumbnail.png'))) {
-        file.thumbnail = path.join('/tmp', dir, 'thumbnail.png');
-    }
-
+ 
     if (fs.existsSync(path.join('/tmp', dir, 'input.mp4'))) {
-        file.input = path.join('/tmp', dir, 'input.mp4');
+        file.input = `/file/${dir}/input.mp4`;
     }
 
     if (fs.existsSync(path.join('/tmp', dir, 'output.mp4'))) {
-        file.output = path.join('/tmp', dir, 'output.mp4');
+        file.output = `/file/${dir}/output.mp4`;
     }
 
     if (fs.existsSync(path.join('/tmp', dir, 'description.txt'))) {

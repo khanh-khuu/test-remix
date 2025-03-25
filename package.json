@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mantine/core": "^7.17.2",
+    "@mantine/form": "^7.17.2",
     "@mantine/hooks": "^7.17.2",
     "@mantine/nprogress": "^7.17.2",
     "@remix-run/express": "^2.16.1",
@@ -19,7 +20,9 @@
     "@remix-run/react": "^2.16.0",
     "@remix-run/serve": "*",
     "@tabler/icons-react": "^3.31.0",
+    "ahooks": "^3.8.4",
     "axios": "^1.8.3",
+    "browser-video-thumbnail-generator": "^2.0.3",
     "cross-env": "^7.0.3",
     "express": "^4.21.2",
     "fb-downloader-scrapper": "^3.0.1",

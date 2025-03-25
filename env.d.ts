@@ -3,3 +3,5 @@
 interface CloudflareEnv {
 	ASSETS: Fetcher;
 }
+
+declare module 'react-video-thumbnail';
