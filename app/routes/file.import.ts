@@ -199,10 +199,10 @@ export const loader: LoaderFunction = async ({ request }) => {
     );
 
   const id = Date.now().toString();
-  const outputPath = path.join(process.cwd(), "temp", id, 'input.mp4');
+  const outputPath = path.join("/tmp", id, 'input.mp4');
 
-  if (!fs.existsSync(path.join(process.cwd(), "temp"))) {
-    fs.mkdirSync(path.join(process.cwd(), "temp"), {
+  if (!fs.existsSync(path.join("/tmp"))) {
+    fs.mkdirSync(path.join("/tmp"), {
       recursive: true,
     });
   }
@@ -215,7 +215,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   try {
     fs.writeFileSync(
-      path.join(process.cwd(), "temp", id, "description.txt"),
+      path.join("/tmp", id, "description.txt"),
       description,
       {
         encoding: "utf-8",

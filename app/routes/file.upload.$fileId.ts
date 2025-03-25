@@ -16,7 +16,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       { status: 400 }
     );
 
-  if (!fs.existsSync(path.join(process.cwd(), "temp", fileId!)))
+  if (!fs.existsSync(path.join("/tmp", fileId!)))
     return Response.json(
       {
         error: "Id invalid.",
@@ -24,7 +24,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       { status: 400 }
     );
 
-  const filePath = path.join(process.cwd(), "temp", fileId!, "output.mp4");
+  const filePath = path.join("/tmp", fileId!, "output.mp4");
   const buffer = Buffer.from(await file.arrayBuffer());
 
   fs.writeFileSync(filePath, buffer);

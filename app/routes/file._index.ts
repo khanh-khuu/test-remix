@@ -12,7 +12,7 @@ interface VideoFile {
 }
 
 export const loader: LoaderFunction = async () => {
-  const outputPath = path.join(process.cwd(), "temp");
+  const outputPath = path.join("/tmp");
   if (!fs.existsSync(outputPath)) return Response.json([]);
 
   const dirs = fs
