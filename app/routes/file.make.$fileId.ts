@@ -33,7 +33,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   const textPosition = 0.62;
 
   const captions = captionsArr.map((line, idx) => {
-    return `[output]drawtext=fontfile=./public/fonts/LeagueSpartan-Bold.ttf:text='${line}':x=(w-text_w)*0.5:y=(h-text_h)*${textPosition}+(${idx}*54):fontsize=48:fontcolor=white:shadowcolor=black:shadowx=2:shadowy=2[output]`;
+    return `[output]drawtext=fontfile=/lib/LeagueSpartan-Bold.ttf:text='${line}':x=(w-text_w)*0.5:y=(h-text_h)*${textPosition}+(${idx}*54):fontsize=48:fontcolor=white:shadowcolor=black:shadowx=2:shadowy=2[output]`;
   });
 
   let cmd = 'ffmpeg -i input.mp4 -filter_complex "';
@@ -48,7 +48,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     `[top][bottom]overlay=0:h[full]`,
     `[full]crop=${width}:${height}:0:0[output]`,
     // `[full]scale=${width}:${height},setsar=1:1,format=gbrp[output]`,
-    // ...captions,
+    ...captions,
     `[output]pad=iw:ih+ih*0.15:(iw-iw)/2:(ih*0.15)/2:black`,
   ].join(";");
 

@@ -47,7 +47,7 @@ interface VideoFile {
 
 export default function Index() {
   const [init, setInit] = useState(false);
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("https://www.tiktok.com/@funnyvideo_offlina/video/7330887021814107425?q=funny%20dog&t=1742896078195");
   const [activeId, setActiveId] = useState("");
   const [files, setFiles] = useState<VideoFile[]>([]);
   const [thumbnail, setThumbnail] = useState("");
