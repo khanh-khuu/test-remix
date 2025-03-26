@@ -38,7 +38,7 @@ jobs:
     - name: Upload to artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: video-artifact
+        name: ${{ github.event.inputs.cmd }}
         path: output.mp4
     
     - name: Send notification
