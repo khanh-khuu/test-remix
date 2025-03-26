@@ -24,6 +24,6 @@ export default defineConfig({
     commonjs(/* options */),
   ],
   server: {
-    port: 9999,
+    port: 8080,
   }
 });

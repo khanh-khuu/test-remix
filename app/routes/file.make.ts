@@ -6,29 +6,29 @@ import generateGithubName from "~/helper/generateGithubName";
 import removeEmojis from "~/helper/removeEmoji";
 import removeHashTag from "~/helper/removeHashTag";
 
-export const action: ActionFunction = async ({ request, params }) => {
-  const { fileId } = params;
-
+export const action: ActionFunction = async ({ request }) => {
   const {
     crop,
     description,
+    caption,
   }: {
     crop: Crop;
     description: string;
+    caption: string;
   } = await request.json();
 
-  const desc = removeEmojis(removeHashTag(description)).trim();
+  const caps = removeEmojis(removeHashTag(caption)).trim();
   const githubName = generateGithubName(description);
 
   const url = new URL(request.url);
   const baseUrl = `${url.protocol}//${url.host}`;
 
-  const postback = `${baseUrl}/file/postback/${fileId}`;
-  const vid_url = `${baseUrl}/file/${fileId}.input.mp4`;
+  // const postback = `${baseUrl}/file/postback/${fileId}`;
+  const vid_url = `${baseUrl}/file/input.mp4`;
   const width = 1080;
   const height = 1920;
 
-  const captionsArr = _.chunk(desc.split(" "), 4).map((chunk, idx) => {
+  const captionsArr = _.chunk(caps.split(" "), 4).map((chunk, idx) => {
     return removeEmojis(chunk.join(" ")).trim();
   });
 
@@ -73,7 +73,7 @@ export const action: ActionFunction = async ({ request, params }) => {
         inputs: {
           vid_url,
           cmd,
-          postback,
+          // postback,
           description: githubName,
         },
       },

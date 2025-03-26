@@ -10,9 +10,9 @@ on:
       cmd:
         description: 'Command'
         required: true
-      postback:
-        description: 'Postback Url'
-        required: true
+      # postback:
+      #   description: 'Postback Url'
+      #   required: true
       description:
         description: 'Description'
         required: true
@@ -44,9 +44,9 @@ jobs:
         name: output.mp4
         path: output.mp4
     
-    - name: Send notification
-      run: |
-        curl -X POST -H "Content-Type: application/json" -d "{\"runId\": \"${{ github.run_id }}\"}" ${{ github.event.inputs.postback }}
+    # - name: Send notification
+    #   run: |
+    #     curl -X POST -H "Content-Type: application/json" -d "{\"runId\": \"${{ github.run_id }}\"}" ${{ github.event.inputs.postback }}
 
     # - name: Upload Vid to Node.js Server
     #   run: |

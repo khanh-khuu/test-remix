@@ -5,6 +5,16 @@ import fs from "fs";
 // import * as YTDlpWrap from "yt-dlp-wrap";
 import { getFbVideoInfo } from "fb-downloader-scrapper";
 import he from "he";
+import {ffmpegPath, ffprobePath} from 'ffmpeg-ffprobe-static';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
+const ffmpeg: typeof import('fluent-ffmpeg') = require('fluent-ffmpeg');
+ffmpeg.setFfmpegPath(ffmpegPath!);
+ffmpeg.setFfprobePath(ffprobePath!);
+
+// const ytdlpwrap: typeof import('yt-dlp-wrap') = require('yt-dlp-wrap');
 
 const YTDlpWrap = require('yt-dlp-wrap').default;
 
@@ -200,29 +210,23 @@ export const loader: LoaderFunction = async ({ request }) => {
       { status: 400 }
     );
 
-  const id = Date.now().toString();
-  const outputPath = path.join("/tmp", id + '.input.mp4');
+  const outputPath = path.join("/tmp", 'input.mp4');
 
   const description = await downloadVideo(downloadUrl, outputPath);
 
-  try {
-    fs.writeFileSync(
-      path.join("/tmp", id + ".txt"),
-      description,
-      {
-        encoding: "utf-8",
-      }
-    );
+  const cmd = ffmpeg()
+  
+  cmd.addInput(outputPath);
+  cmd.screenshot({
+    count: 1,
+    folder: '/tmp',
+    filename: 'thumbnail.png',
+    timemarks: ['25%']
+  })
 
-    return Response.json({
-      id,
-      description,
-    })
+  return Response.json({
+    description,
+    thumbnail: `/file/thumbnail.png?t=${Date.now()}`,
+  });
 
-  } catch (error) {
-    return Response.json(
-      { error: "Failed to download the file." },
-      { status: 500 }
-    );
-  }
 };

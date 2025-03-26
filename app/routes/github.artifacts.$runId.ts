@@ -1,13 +1,14 @@
 import fs from "fs";
-import { ActionFunctionArgs } from "@remix-run/node";
+import { LoaderFunction } from "@remix-run/node";
 import path from "path";
 import axios from "axios";
 import unzipper from "unzipper";
+// import mime from 'mime';
 
-export async function action({ request, params }: ActionFunctionArgs) {
-  const { fileId } = params;
+export const loader: LoaderFunction = async ({ request, params }) => {
+  const { runId } = params;
 
-  const { runId } = await request.json();
+  const download = new URL(request.url).searchParams.get('download');
 
   if (!process.env.GITHUB_TOKEN) {
     return Response.json(
@@ -39,7 +40,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
   });
 
   const tempZipPath = path.join("/tmp", "temp.zip");
-  const outputPath = path.join("/tmp", fileId!);
+  const outputPath = path.join("/tmp");
 
   downloadResponse.data.pipe(fs.createWriteStream(tempZipPath));
 
@@ -58,7 +59,23 @@ export async function action({ request, params }: ActionFunctionArgs) {
       .catch(reject);
   });
 
-  return Response.json({
-    success: true,
+  const outputFile = path.join('/tmp', 'output.mp4');
+
+  // fs.accessSync(outputFile);
+  const fileBuffer = fs.readFileSync(outputFile);
+  const fileStat = fs.statSync(outputFile);
+  // const fileMime = mime.getType(outputFile);
+  // console.log(fileMime);
+
+  const headers: Record<string, string> = {
+    "Content-Type": "video/mp4", // || fileMime || "application/octet-stream",
+    "Content-Length": fileStat.size.toString(),
+  };
+
+  if (download !== null) {
+    headers["Content-Disposition"] = `attachment; filename="${runId}.mp4"`;
+  }
+  return new Response(fileBuffer, {
+    headers,
   });
 }
