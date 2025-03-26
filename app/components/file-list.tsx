@@ -16,10 +16,14 @@ export default function FileList() {
   }
 
   useEffect(() => {
+    axios.get<WorkflowrunResponse>("/github/runs").then(({data}) => {
+      setRuns(data.workflow_runs);
+    });
+    
     const timer = setInterval(async () => {
       const { data } = await axios.get<WorkflowrunResponse>("/github/runs");
       setRuns(data.workflow_runs);
-    }, 3000);
+    }, 5000);
 
     return () => {
       clearInterval(timer);
