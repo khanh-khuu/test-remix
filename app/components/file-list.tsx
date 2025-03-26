@@ -1,4 +1,4 @@
-import { ActionIcon, Anchor, Box, Table } from "@mantine/core";
+import { ActionIcon, Anchor, Box, CopyButton, Table } from "@mantine/core";
 import { IconDownload } from "@tabler/icons-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -16,10 +16,10 @@ export default function FileList() {
   }
 
   useEffect(() => {
-    axios.get<WorkflowrunResponse>("/github/runs").then(({data}) => {
+    axios.get<WorkflowrunResponse>("/github/runs").then(({ data }) => {
       setRuns(data.workflow_runs);
     });
-    
+
     const timer = setInterval(async () => {
       const { data } = await axios.get<WorkflowrunResponse>("/github/runs");
       setRuns(data.workflow_runs);
@@ -48,7 +48,11 @@ export default function FileList() {
           {runs.map((x) => (
             <Tr key={x.id}>
               {/* <Td>{x.id}</Td> */}
-              <Td>{x.name}</Td>
+              <Td>
+                <CopyButton value={x.name}>
+                  {() => <span>{x.name}</span>}
+                </CopyButton>
+              </Td>
               <Td>{x.status}</Td>
               <Td>{x.conclusion}</Td>
               <Td>{x.created_at}</Td>
