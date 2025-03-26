@@ -2,6 +2,7 @@ import { ActionFunction } from "@remix-run/node";
 import axios from "axios";
 import _ from "lodash";
 import { Crop } from "react-image-crop";
+import generateGithubName from "~/helper/generateGithubName";
 import removeEmojis from "~/helper/removeEmoji";
 import removeHashTag from "~/helper/removeHashTag";
 
@@ -17,6 +18,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   } = await request.json();
 
   const desc = removeEmojis(removeHashTag(description)).trim();
+  const githubName = generateGithubName(description);
 
   const url = new URL(request.url);
   const baseUrl = `${url.protocol}//${url.host}`;
@@ -72,6 +74,7 @@ export const action: ActionFunction = async ({ request, params }) => {
           vid_url,
           cmd,
           postback,
+          description: githubName,
         },
       },
       {

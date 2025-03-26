@@ -1,5 +1,5 @@
 name: Make
-run-name: ${{ github.event.inputs.vid_url }}
+run-name: ${{ github.event.inputs.description }}
 
 on:
   workflow_dispatch:
@@ -12,6 +12,9 @@ on:
         required: true
       postback:
         description: 'Postback Url'
+        required: true
+      description:
+        description: 'Description'
         required: true
 
 
@@ -38,7 +41,7 @@ jobs:
     - name: Upload to artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.event.inputs.cmd }}
+        name: ${{ github.event.inputs.description }}
         path: output.mp4
     
     - name: Send notification
